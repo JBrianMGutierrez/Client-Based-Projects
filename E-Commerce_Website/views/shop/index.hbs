@@ -1,0 +1,23 @@
+<div class="row">
+{{#each products}}
+    <div class="col-md-4">
+        <figure class="card card-product">
+            <div class="img-wrap"><img src="https://s7d2.scene7.com/is/image/SamsungUS/Pdpdefault-ls22e310hs-za-600x600-C1-052016?$product-details-jpg$"></div>
+            <figcaption class="info-wrap">
+                <h4 class="title">{{this.product_name}}</h4>
+                <p class="desc">{{this.seller}}</p>
+                <div class="rating-wrap">
+                    <div class="label-rating">132 reviews</div>
+                    <div class="label-rating">{{this.available_quantity}} in Stock</div>
+                </div> <!-- rating-wrap.// -->
+            </figcaption>
+            <div class="bottom-wrap">
+                <a href="../add_to_cart/{{this._id}}" class="btn btn-sm btn-primary float-right">Add to Shopping Cart</a>
+                <div class="price-wrap h5">
+                    <span class="price-new">₱{{this.price}}</span>
+                </div> <!-- price-wrap.// -->
+            </div> <!-- bottom-wrap.// -->
+        </figure>
+    </div> <!-- col // -->
+{{/each}}
+</div> <!-- row.// -->
