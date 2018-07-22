@@ -14,3 +14,19 @@ exports.additem_to_cart = function (req, res, next) {
         }
     });
 };
+
+exports.shopping_cart_page = function (req, res, next) {
+    if (!req.session.cart) {
+        return res.render ('shop/shopping_cart', { products: null, title: 'Shopping Cart' });
+    }
+    var cart = new Cart(req.session.cart);
+    res.render('shop/shopping_cart', { products: cart.generateItemsInArray(), totalPrice: cart.totalCost, title: 'Shopping Cart' });
+};
+
+exports.checkout = function (req, res, next) {
+    if(!req.session.cart){
+        return res.redirect('/shopping_cart');
+    }
+    var cart = new Cart(req.session.cart);
+    res.render('shop/checkout', { products: cart.generateItemsInArray(), totalPrice: cart.totalCost, title: 'Checkout' });
+};

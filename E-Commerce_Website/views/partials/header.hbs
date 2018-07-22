@@ -27,13 +27,14 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="../user/sign_out">Logout</a>
                         {{ else }}
-                            <a class="dropdown-item" href="#">Sign in</a>
+                            <a class="dropdown-item" href="../user/sign_in">Sign in</a>
                             <a class="dropdown-item" href="../user/sign_up">Sign up</a>
                         {{/ if }}
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Shopping Cart {{session.cart.totalQuantity}}</a>
+                    <a class="nav-link" href="../shopping_cart">Shopping Cart
+                        <span class="badge">{{session.cart.totalQuantity}}</span></a>
                 </li>
             </ul>
         </div>
