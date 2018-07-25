@@ -6,24 +6,20 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var handlebars = require('express-handlebars');
 var session = require('express-session');
-var mongoose = require('mongoose');
+var database = require('./config/database');
 var passport = new require('passport');
 var flash = require('connect-flash');
 var mongoSession = require('connect-mongo')(session);
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/user');
 var productRouter = require('./routes/product');
+var checkoutRouter = require('./routes/checkout');
 var helmet = require('helmet');
+var paypal = require('paypal-rest-sdk');
 var app = express();
 
-var database_url = 'mongodb://localhost:27017/e-commerce_development';
-//Set up mongoose connection
-mongoose.Promise = global.Promise;
-mongoose.connect(database_url, { useNewUrlParser: true });
 require('./config/passport');
-
 // view engine setup
-// Do not change the variable "extname" it derives the variable from the handlebar's module
 app.engine('.hbs', handlebars({defaultLayout: 'layout', extname: '.hbs'}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', '.hbs');
@@ -39,7 +35,7 @@ app.use(session({
     secret: 'e-commerce',
     resave: false,
     saveUninitialized: false,
-    store: new mongoSession({ mongooseConnection: mongoose.connection }),
+    store: new mongoSession({ mongooseConnection: database.dataMongoose.connection }),
     cookie: { maxAge: 180 * 60 * 1000 }
 }));
 app.use(flash());
@@ -57,6 +53,7 @@ app.use(function (req, res, next) {
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
 app.use('/products', productRouter);
+app.use('/checkout', checkoutRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
