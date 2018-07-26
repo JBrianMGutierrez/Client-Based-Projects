@@ -15,9 +15,9 @@ var usersRouter = require('./routes/user');
 var productRouter = require('./routes/product');
 var checkoutRouter = require('./routes/checkout');
 var helmet = require('helmet');
-var paypal = require('paypal-rest-sdk');
 var app = express();
 
+require('./config/paypal_id');
 require('./config/passport');
 // view engine setup
 app.engine('.hbs', handlebars({defaultLayout: 'layout', extname: '.hbs'}));
