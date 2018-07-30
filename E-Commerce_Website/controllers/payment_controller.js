@@ -1,5 +1,5 @@
 var paypal = require('paypal-rest-sdk');
-
+// var url = require('url');
 exports.pay = function (req, res, next) {
     var create_payment_json = {
         "intent": "sale",
@@ -43,8 +43,9 @@ exports.pay = function (req, res, next) {
 };
 
 exports.success = function (res, req, next) {
-    var payerID = req.params.PayerID;
-    var paymentID = req.params.paymentId;
+    //var url_parts = url.parse(req.url, true);
+    var payerID = req.query.PayerID;
+    var paymentID = req.query.paymentId;
 
     var execute_payment_json = {
         "payer_id": payerID,
