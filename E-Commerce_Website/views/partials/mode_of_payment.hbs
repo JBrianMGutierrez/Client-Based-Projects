@@ -1,0 +1,11 @@
+<script>
+    $(function() {
+        $("input[name='paymentMethod']").click(function() {
+            if ($("#credit").is(":checked")) {
+                $("#mode_of_payment").show(1000);
+            } else {
+                $("#mode_of_payment").hide(1000);
+            }
+        });
+    });
+</script>

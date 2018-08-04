@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var payment_controller = require('../controllers/payment_controller');
+var paypal_controller = require('../controllers/paypal_controller');
 
-router.post('/pay', payment_controller.pay);
+router.post('/pay', paypal_controller.pay);
 
-router.get('/success', payment_controller.success);
+router.get('/success', paypal_controller.success);
 
-router.get('/cancel', payment_controller.cancel);
+router.get('/cancel', paypal_controller.cancel);
 
 module.exports = router;

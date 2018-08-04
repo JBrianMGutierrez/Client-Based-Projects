@@ -16,7 +16,7 @@ exports.product_create = function(req, res, next) {
         req.body.product_desc &&
         req.body.price &&
         req.body.available_quantity &&
-        req.body.seller) {
+        req.body.seller);{
         var product = {
             product_id: req.body.product_id,
             product_name: req.body.product_name,

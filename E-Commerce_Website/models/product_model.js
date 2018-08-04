@@ -29,5 +29,4 @@ var ProductSchema = new mongoose.Schema({
         max: 30
     }
 });
-
 module.exports = mongoose.model('Product', ProductSchema);
