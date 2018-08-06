@@ -1,8 +1,11 @@
 var paypal = require('paypal-rest-sdk');
 var Paypal = require('../models/paypal_model');
 var Cart = require('../models/cart_model');
-
-exports.pay = function (req, res, next) {
+var Order = new require('../models/order_model');
+var paymentID;
+/** @namespace req.query.paymentId */
+/** @namespace req.query.PayerID */
+exports.create_order = function (req, res, next) {
     var create_json = new Paypal();
     var cart = new Cart(req.session.cart);
     paypal.payment.create(create_json.create_payment_json(cart), function (error, payment) {
@@ -19,24 +22,35 @@ exports.pay = function (req, res, next) {
 };
 
 exports.success = function (req, res, next) {
-    /** @namespace req.query.PayerID */
     var payerID = req.query.PayerID;
-    /** @namespace req.query.paymentId */
-    var paymentID = req.query.paymentId;
+    paymentID = req.query.paymentId;
     var execute_json = new Paypal(req.session.cart);
     paypal.payment.execute(paymentID, execute_json.execute_payment_json(payerID), function (error, payment) {
         if(error){
             console.log(error.response);
             throw error;
-        } else {
-            console.log("Get Payment Response");
-            console.log(JSON.stringify(payment));
-            req.session.cart = null;
-            res.redirect('/');
         }
+        console.log("Get Payment Response");
+        console.log(JSON.stringify(payment));
+        res.send(payment);
+        /*
+        res.render('shop/confirmation', { order_id: payment.id,
+            order_first_name: payment.payer.payer_info.first_name,
+            order_last_name: payment.payer.payer_info.last_name,
+            order_line1: payment.payer.payer_info.shipping_address.line1,
+            order_line2: payment.payer.payer_info.shipping_address.line2
+        });
+        */
     });
+};
+
+exports.confirm_order = function (req, res, next) {
+    req.session.cart = null;
+    res.redirect('/');
 };
 
 exports.cancel = function (req, res, next) {
     res.send('Cancelled');
 };
+
+

@@ -1,7 +1,7 @@
 module.exports = function Paypal(){
     this.create_payment_json = function(products) {
         return {
-            "intent": "sale",
+            "intent": "authorize",
             "payer": {
                 "payment_method": "paypal"
             },
@@ -25,8 +25,19 @@ module.exports = function Paypal(){
                     "total": "25.00"
                 },
                 "description": "This is the payment description."
-            }]
+            }],
+            "note_to_payer": "Contact us for any questions on your order."
         };
+    };
+
+    this.capture_details = function() {
+        return {
+            "amount": {
+                "currency": "USD",
+                "total": "25.00"
+            },
+            "is_final_capture": true
+        }
     };
 
     this.execute_payment_json = function (payerID) {
