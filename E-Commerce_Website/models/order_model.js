@@ -27,6 +27,10 @@ var schema = new OrderSchema({
     paymentID: {
         type: String,
         required: true
+    },
+    status: {
+        type: String,
+        required: true
     }
 });
 module.exports = mongoose.model('Order', schema);

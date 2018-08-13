@@ -1,6 +1,10 @@
 var Product = new require('../models/product_model');
 var Cart = require('../models/cart_model');
 
+exports.mode_of_payment = function(req, res, next) {
+    res.render('shop/mode_of_payment');
+};
+
 exports.additem_to_cart = function (req, res, next) {
     var productId = req.params.id;
     var cart = new Cart(req.session.cart ? req.session.cart : {});
@@ -28,5 +32,5 @@ exports.checkout = function (req, res, next) {
         return res.redirect('/shopping_cart');
     }
     var cart = new Cart(req.session.cart);
-    res.render('shop/checkout', { products: cart.generateItemsInArray(), totalPrice: cart.totalCost, title: 'Checkout' });
+    res.render('shop/checkout', { products: cart.generateItemsInArray(), totalPrice: cart.totalCost, item: cart.items, title: 'Checkout' });
 };

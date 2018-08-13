@@ -9,10 +9,10 @@
             {{# each products}}
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
-                        <h6 class="my-0">Product name</h6>
-                        <small class="text-muted">Brief description</small>
+                        <h6 class="my-0">{{ item.product_name }}</h6>
+                        <small class="text-muted">{{ item.seller}}</small>
                     </div>
-                    <span class="text-muted">$12</span>
+                    <span class="text-muted">PHP {{item.price}}</span>
                 </li>
             {{/each}}
             <li class="list-group-item d-flex justify-content-between bg-light">
@@ -115,19 +115,7 @@
                     </div>
                 </div>
             </div>
-            <hr class="mb-4">
-            <h4 class="mb-3">Payment</h4>
-            <div class="d-block my-3">
-                <div class="custom-control custom-radio">
-                    <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" value="0" checked required>
-                    <label class="custom-control-label" for="paypal">Paypal</label>
-                </div>
-                <div class="custom-control custom-radio">
-                    <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" value="1" required>
-                    <label class="custom-control-label" for="credit">Credit card</label>
-                </div>
-            </div>
-            <div id="mode_of_payment" class="inputs" style="display: none">
+            <div id="mode_of_payment" class="inputs">
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="cc-name">Name on card</label>
@@ -163,9 +151,8 @@
                 </div>
             </div>
             <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Pay</button>
         </form>
     </div>
 </div>
 <br><br>
-{{>mode_of_payment}}

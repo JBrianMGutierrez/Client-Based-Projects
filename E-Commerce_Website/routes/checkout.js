@@ -9,7 +9,7 @@ router.get('/success', paypal_controller.success);
 
 router.get('/confirmation', paypal_controller.confirm_order);
 
-router.post('/confirmation', paypal_controller.confirm_order)
+router.post('/confirmation', order_controller.order_data);
 
 router.get('/cancel', paypal_controller.cancel);
 

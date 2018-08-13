@@ -12,11 +12,16 @@ exports.order_data = function (req, res, next) {
         last_name: req.body.last_name,
         address_1: req.body.address_1,
         address_2: req.body.address_2,
-        paymentID: paymentID
+        paymentID: paymentID,
+        status: "Pending"
     });
 
-    order.save(function (err, result) {
-        req.session.cart = null;
-        res.redirect('/');
+    order.create(order, function (err, result) {
+        if(err){
+            return next(err);
+        } else {
+            req.session.cart = null;
+            res.redirect('/');
+        }
     });
 };

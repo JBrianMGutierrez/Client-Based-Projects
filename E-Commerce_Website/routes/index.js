@@ -10,6 +10,8 @@ router.get('/add_to_cart/:id', cart_controller.additem_to_cart);
 
 router.get('/shopping_cart', cart_controller.shopping_cart_page);
 
+router.get('/mode_of_payment', cart_controller.mode_of_payment);
+
 router.get('/checkout', cart_controller.checkout);
 
 module.exports = router;

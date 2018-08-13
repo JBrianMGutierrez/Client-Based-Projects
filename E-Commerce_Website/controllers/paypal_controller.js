@@ -5,6 +5,7 @@ var Order = new require('../models/order_model');
 var paymentID;
 /** @namespace req.query.paymentId */
 /** @namespace req.query.PayerID */
+
 exports.create_order = function (req, res, next) {
     var create_json = new Paypal();
     var cart = new Cart(req.session.cart);
@@ -32,15 +33,8 @@ exports.success = function (req, res, next) {
         }
         console.log("Get Payment Response");
         console.log(JSON.stringify(payment));
-        res.send(payment);
-        /*
-        res.render('shop/confirmation', { order_id: payment.id,
-            order_first_name: payment.payer.payer_info.first_name,
-            order_last_name: payment.payer.payer_info.last_name,
-            order_line1: payment.payer.payer_info.shipping_address.line1,
-            order_line2: payment.payer.payer_info.shipping_address.line2
-        });
-        */
+        var jsonPayer = JSON.parse(payment);
+        res.render('shop/confirmation', { jsonPayer: jsonPayer });
     });
 };
 
