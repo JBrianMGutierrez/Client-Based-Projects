@@ -5,13 +5,11 @@ exports.sign_up = function (req, res, next) {
 };
 
 exports.create = passport.authenticate('local.signup', {
-    successRedirect: 'profile',
-    failureRedirect: 'sign_up',
+    failureRedirect: 'user/sign_up',
     failureFlash: true
 });
 
 exports.profile = function (req, res, next) {
-    // redirect to the directory of the file profile.js
     res.render('user/profile', { title: 'Profile'})
 };
 
@@ -20,10 +18,19 @@ exports.sign_in = function (req, res, next) {
 };
 
 exports.login = passport.authenticate('local.signin', {
-    successRedirect: 'profile',
-    failureRedirect: 'sign_in',
+    failureRedirect: 'user/sign_in',
     failureFlash: true
 });
+
+exports.checkoutLoggedIn = function (req, res, next) {
+    if(req.session.oldURL){
+        var oldURL = req.session.oldURL;
+        req.session.oldURL = null;
+        res.redirect(oldURL);
+    } else {
+        res.redirect('user/profile');
+    }
+};
 
 exports.isUserLogin = function (req, res, next) {
     if(req.isAuthenticated()) {
@@ -43,6 +50,15 @@ exports.userNotLogin = function (req, res, next) {
         return next();
     } else {
         res.redirect('/');
+    }
+};
+
+exports.CheckoutLogin = function (req, res, next) {
+    if(req.isAuthenticated()) {
+        return next();
+    } else {
+        req.session.oldURL = req.url;
+        res.redirect('user/sign_in');
     }
 };
 

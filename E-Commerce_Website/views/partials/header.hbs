@@ -15,6 +15,8 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="../products/add_item">Add a Product</a>
+                        <a class="dropdown-item" href="#">Order Transaction Validation</a>
+                        <a class="dropdown-item" href="#">Marketing Sales</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -24,6 +26,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         {{# if login}}
                             <a class="dropdown-item" href="../user/profile">Profile</a>
+                            <a class="dropdown-item" href="#">Tracker</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="../user/sign_out">Logout</a>
                         {{ else }}
@@ -35,16 +38,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="../shopping_cart">Shopping Cart
                         <span class="badge">{{session.cart.totalQuantity}}</span></a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Tracker</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Order Transaction Validation</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Marketing Sales</a>
                 </li>
             </ul>
         </div>

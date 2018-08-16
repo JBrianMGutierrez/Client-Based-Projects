@@ -14,12 +14,10 @@ router.use('/', user_controller.userNotLogin, user_controller.logoutNext);
 
 router.get('/sign_up', user_controller.sign_up);
 
-router.post('/sign_up', user_controller.create);
-// redirect to the assigned route stated in the app.js which is users/profile
+router.post('/sign_up', user_controller.create, user_controller.checkoutLoggedIn);
+
 router.get('/sign_in', user_controller.sign_in);
 
-router.post('/sign_in', user_controller.login);
+router.post('/sign_in', user_controller.login, user_controller.checkoutLoggedIn);
 
 module.exports = router;
-
-

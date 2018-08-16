@@ -1,10 +1,7 @@
 var paypal = require('paypal-rest-sdk');
 var Paypal = require('../models/paypal_model');
 var Cart = require('../models/cart_model');
-var Order = new require('../models/order_model');
 var paymentID;
-/** @namespace req.query.paymentId */
-/** @namespace req.query.PayerID */
 
 exports.create_order = function (req, res, next) {
     var create_json = new Paypal();
@@ -33,8 +30,8 @@ exports.success = function (req, res, next) {
         }
         console.log("Get Payment Response");
         console.log(JSON.stringify(payment));
-        var jsonPayer = JSON.parse(payment);
-        res.render('shop/confirmation', { jsonPayer: jsonPayer });
+        res.render('shop/confirmation', { jsonPayer: payment });
+        exports.paymentID = paymentID;
     });
 };
 

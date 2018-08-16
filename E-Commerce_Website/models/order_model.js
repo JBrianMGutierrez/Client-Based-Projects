@@ -17,12 +17,9 @@ var schema = new OrderSchema({
         type: String,
         required: true
     },
-    address_1: {
+    email: {
         type: String,
         required: true
-    },
-    address_2: {
-        type: String,
     },
     paymentID: {
         type: String,
