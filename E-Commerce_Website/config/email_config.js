@@ -6,8 +6,8 @@ exports.config = nodemailer.createTransport({
     //secure: false, // true for 465, false for other ports
     service: 'Gmail',
     auth: {
-        user: 'jitteamproject@gmail.com',
-        pass: 'orderingsystem'
+        user: 'Scret',
+        pass: 'Scret'
     },
     tls: {
         rejectUnauthorized: false
