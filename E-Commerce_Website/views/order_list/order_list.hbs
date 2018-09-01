@@ -1,0 +1,26 @@
+<table id="example" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Total Price</th>
+        <th>status</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{# each orders}}
+        <tr>
+            <td>{{this.first_name}} {{this.last_name}}</td>
+            <td>{{this.email}}</td>
+            <td>PHP {{this.cart.totalCost}}</td>
+            <td>{{this.status}}</td>
+            <td>
+                <a href="email/{{this._id}}">
+                    <button type="button" class="btn btn-warning">Order to Supplier</button>
+                </a>
+            </td>
+        </tr>
+    {{/each}}
+</table>
+{{>order_list_script}}

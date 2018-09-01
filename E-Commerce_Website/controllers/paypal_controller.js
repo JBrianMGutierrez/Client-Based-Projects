@@ -6,7 +6,7 @@ var paymentID;
 exports.create_order = function (req, res, next) {
     var create_json = new Paypal();
     var cart = new Cart(req.session.cart);
-    paypal.payment.create(create_json.create_payment_json(cart), function (error, payment) {
+    paypal.payment.create(create_json.create_payment_json(cart.generateItemsInArray(), cart.totalCost), function (error, payment) {
         if (error) {
             throw error;
         } else {
@@ -23,7 +23,8 @@ exports.success = function (req, res, next) {
     var payerID = req.query.PayerID;
     paymentID = req.query.paymentId;
     var execute_json = new Paypal(req.session.cart);
-    paypal.payment.execute(paymentID, execute_json.execute_payment_json(payerID), function (error, payment) {
+    var cart = new Cart(req.session.cart);
+    paypal.payment.execute(paymentID, execute_json.execute_payment_json(payerID, cart.totalCost), function (error, payment) {
         if(error){
             console.log(error.response);
             throw error;

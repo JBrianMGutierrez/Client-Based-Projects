@@ -5,11 +5,15 @@
       <w>bcrypt</w>
       <w>clearfix</w>
       <w>extname</w>
+      <w>gmail</w>
       <w>javascripts</w>
+      <w>manabat</w>
+      <w>nodemailer</w>
       <w>paypal</w>
       <w>resave</w>
       <w>signin</w>
       <w>signup</w>
+      <w>smtp</w>
     </words>
   </dictionary>
 </component>

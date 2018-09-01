@@ -9,7 +9,7 @@ router.post('/add_item', product_controller.product_create);
 
 router.get('/:id', product_controller.product_read);
 
-router.put('/:id/update', product_controller.product_update);
+router.post('/:id/update', product_controller.product_update);
 
 router.delete('/:id/delete', product_controller.product_delete);
 

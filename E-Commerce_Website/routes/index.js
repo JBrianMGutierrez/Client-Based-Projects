@@ -9,6 +9,12 @@ router.get('/', product_controller.home);
 
 router.get('/add_to_cart/:id', cart_controller.additem_to_cart);
 
+router.get('/reduce_item/:id', cart_controller.reduceQuantity);
+
+router.get('/remove_item_cart/:id', cart_controller.removeItemCart);
+
+router.get('/add_quantity/:id', cart_controller.addQuantity);
+
 router.get('/shopping_cart', cart_controller.shopping_cart_page);
 
 router.get('/mode_of_payment', user_controller.CheckoutLogin, cart_controller.mode_of_payment);

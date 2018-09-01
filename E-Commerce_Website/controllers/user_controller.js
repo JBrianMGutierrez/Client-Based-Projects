@@ -1,4 +1,6 @@
 var passport = new require("passport");
+var Order = new require('../models/order_model');
+var Cart = require('../models/cart_model');
 
 exports.sign_up = function (req, res, next) {
     res.render('user/sign_up', {title: 'Sign Up', csrfToken: req.csrfToken()});
@@ -10,7 +12,18 @@ exports.create = passport.authenticate('local.signup', {
 });
 
 exports.profile = function (req, res, next) {
-    res.render('user/profile', { title: 'Profile'})
+    var userCart;
+    Order.find({user: req.user}, function (err, orders) {
+        if(err) {
+            throw err;
+        } else {
+            orders.forEach(function (order) {
+                userCart = new Cart(order.cart);
+                order.items = userCart.generateItemsInArray();
+            });
+            res.render('user/profile', { title: 'Profile', orders: orders});
+        }
+    });
 };
 
 exports.sign_in = function (req, res, next) {

@@ -1,5 +1,17 @@
+var Cart = require('../models/cart_model');
 module.exports = function Paypal(){
-    this.create_payment_json = function(products) {
+    this.create_payment_json = function(cart, totalCost) {
+        var work = cart.forEach(function (product) {
+            var arrayList = [{
+                "name": product.item.product_name,
+                "description": product.item.product_desc,
+                "sku": product.item.product_id,
+                "price": product.item.price,
+                "currency": "PHP",
+                "quantity": product.item.quantity
+            }];
+            return JSON.stringify(arrayList)
+        });
         return {
             "intent": "sale",
             "payer": {
@@ -11,30 +23,24 @@ module.exports = function Paypal(){
             },
             "transactions": [{
                 "item_list": {
-                    "items": [{
-                        "name": "item",
-                        "sku": "001",
-                        "price": "25.00",
-                        "currency": "USD",
-                        "quantity": 1
-                    }]
+                    "items": work
                 },
                 "amount": {
-                    "currency": "USD",
-                    "total": "25.00"
+                    "currency": "PHP",
+                    "total": totalCost
                 },
                 "description": "This is the payment description."
             }],
             "note_to_payer": "Contact us for any questions on your order."
         };
     };
-    this.execute_payment_json = function (payerID) {
+    this.execute_payment_json = function (payerID, totalCost) {
         return {
             "payer_id": payerID,
             "transactions": [{
                 "amount": {
-                    "currency": "USD",
-                    "total": "25.00"
+                    "currency": "PHP",
+                    "total": totalCost
                 }
             }]
         };

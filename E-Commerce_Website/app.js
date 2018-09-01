@@ -14,11 +14,13 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/user');
 var productRouter = require('./routes/product');
 var checkoutRouter = require('./routes/checkout');
+var orderListRouter = require('./routes/order_list');
 var helmet = require('helmet');
 var app = express();
 
 require('./config/paypal_id');
 require('./config/passport');
+
 // view engine setup
 app.engine('.hbs', handlebars({defaultLayout: 'layout', extname: '.hbs'}));
 app.set('views', path.join(__dirname, 'views'));
@@ -47,6 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(function (req, res, next) {
     res.locals.login = req.isAuthenticated();
     res.locals.session = req.session;
+    res.locals.user = req.user;
     next();
 });
 
@@ -54,6 +57,7 @@ app.use('/', indexRouter);
 app.use('/user', usersRouter);
 app.use('/products', productRouter);
 app.use('/checkout', checkoutRouter);
+app.use('/order', orderListRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

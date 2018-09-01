@@ -2,8 +2,12 @@ var Product = new require('../models/product_model');
 
 exports.home = function(req, res, next) {
     Product.find({}, function (err, products) {
-        res.render('shop/index', { title: 'E-Commerce', products: products});
-    })
+        if(err){
+            return next(err);
+        } else {
+            res.render('shop/index', { title: 'E-Commerce', products: products});
+        }
+    });
 };
 
 exports.addItem = function(req, res, next) {
@@ -36,13 +40,13 @@ exports.product_create = function(req, res, next) {
 };
 
 exports.product_read = function (req, res, next) {
-    Product.findById(req.params.id, function(err, products) {
+    Product.findById(req.params.id, function(err, product) {
         if (err) {
             return next(err);
         } else {
-            res.render('shop/view_item', { title: 'E-Commerce', product: products});
+            res.render('product/view_item', { title: 'E-Commerce', product: product});
         }
-    })
+    });
 };
 
 exports.product_update = function (req, res, next) {

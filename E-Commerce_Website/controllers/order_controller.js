@@ -24,3 +24,16 @@ exports.order_data = function (req, res, next) {
         }
     });
 };
+
+exports.orderList = function (req, res, next) {
+    Order.find({}, function (err, orders) {
+        if(err){
+            return next(err);
+        }
+        var list = {};
+        orders.forEach(function(order){
+            list[order._id] = order;
+        });
+        res.render('order_list/order_list', { title: 'Order List', orders: list})
+    });
+};
